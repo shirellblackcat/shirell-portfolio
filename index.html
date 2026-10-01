@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shirell Aldridge | Tech Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Shirell Aldridge — IT support, cybersecurity, and software/app development." />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1e3a8a" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="S. Aldridge" />
+
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --panel: #ffffff;
+      --accent: #1e3a8a;
+      --accent-strong: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.1);
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --good: #16a34a;
+      --warn: #d97706;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .app {
+      max-width: 1200px;
+      width: 100%;
+      background: var(--panel);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 45px rgba(30, 41, 59, 0.08);
+      padding: 24px 28px 32px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .title-block h1 {
+      font-size: 1.7rem;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+    }
+
+    .title-block p {
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 0.95rem;
+      max-width: 60ch;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    button.primary-btn {
+      background: var(--accent-strong);
+      color: #fff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button.primary-btn:hover { background: var(--accent); }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+      color: #fff;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1.4fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--panel);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .panel-header h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .panel-header span { font-size: 0.78rem; color: var(--accent-strong); }
+
+    .project-card {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-strong);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(30, 41, 59, 0.08);
+    }
+
+    .project-main { flex: 1; }
+    .project-title { font-size: 0.97rem; font-weight: 700; color: var(--text); }
+    .project-meta { margin-top: 4px; font-size: 0.8rem; color: var(--muted); }
+
+    .project-tags {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: #fff;
+    }
+
+    .tag.accent { border-color: var(--accent-soft); color: var(--accent-strong); background: var(--accent-soft); }
+    .tag.status-complete { color: var(--good); border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.08); }
+    .tag.status-progress { color: var(--warn); border-color: rgba(217,119,6,0.3); background: rgba(217,119,6,0.08); }
+
+    .project-score { text-align: right; min-width: 80px; }
+    .score-label { font-size: 0.7rem; color: var(--muted); }
+    .score-value { margin-top: 2px; font-size: 1.1rem; color: var(--accent-strong); font-weight: 700; }
+
+    .score-bar {
+      margin-top: 4px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--border);
+      overflow: hidden;
+      width: 80px;
+    }
+
+    .score-bar-inner {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent-strong), var(--good));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .summary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+    .summary-card { border-radius: 10px; border: 1px solid var(--border); padding: 10px; background: #f8fafc; }
+    .summary-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .summary-value { margin-top: 4px; font-size: 1.15rem; font-weight: 700; color: var(--text); }
+    .summary-sub { margin-top: 2px; font-size: 0.75rem; color: var(--muted); }
+
+    .timeline {
+      margin-top: 12px;
+      height: 70px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-track { position: absolute; inset: 12px 10px; border-radius: 999px; background: #eef2f7; border: 1px solid var(--border); }
+
+    .timeline-dot {
+      position: absolute;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+      transform: translateY(-50%);
+    }
+
+    .timeline-dot.strong { background: var(--good); }
+
+    /* Resume */
+    .resume-section { margin-bottom: 18px; }
+    .resume-section h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-strong);
+      border-bottom: 2px solid var(--accent-soft);
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .resume-section p { font-size: 0.92rem; color: var(--text); line-height: 1.5; margin-bottom: 8px; }
+    .job { margin-bottom: 14px; }
+    .job-title { font-weight: 700; font-size: 0.95rem; }
+    .job-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+    .job ul { padding-left: 20px; }
+    .job li { font-size: 0.88rem; margin-bottom: 4px; line-height: 1.4; }
+
+    /* Skills */
+    .skill-group { margin-bottom: 16px; }
+    .skill-group h3 { font-size: 0.85rem; color: var(--accent-strong); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag { padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 0.82rem; font-weight: 600; border: 1px solid var(--accent-soft); }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .contact-card { border: 1px solid var(--border); border-radius: 10px; padding: 14px; background: #f8fafc; }
+    .contact-card .label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .contact-card .value { font-size: 1rem; font-weight: 600; }
+    .contact-card a { color: var(--accent-strong); text-decoration: none; }
+    .contact-card a:hover { text-decoration: underline; }
+
+    .footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .footer a { color: var(--accent-strong); text-decoration: none; border-bottom: 1px dashed rgba(37, 99, 235, 0.4); }
+    .footer a:hover { border-bottom-style: solid; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .app { box-shadow: none; border: none; }
+      .tabs, .header-actions, .footer, #install-btn { display: none !important; }
+      .tab-panel { display: none !important; }
+      #tab-resume { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="title-block">
+        <h1>Shirell Aldridge</h1>
+        <p>Hybrid tech professional blending IT support, cybersecurity, and software/app development into one evolving identity.</p>
+      </div>
+      <div class="header-actions">
+        <span class="badge">Lumberton, NC</span>
+        <button class="primary-btn" id="install-btn" style="display:none;">Install App</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="overview">Projects</button>
+      <button class="tab-btn" data-tab="resume">Resume</button>
+      <button class="tab-btn" data-tab="skills">Skills</button>
+      <button class="tab-btn" data-tab="contact">Contact</button>
+    </nav>
+
+    <!-- Projects + Summary -->
+    <section class="tab-panel active" id="tab-overview">
+      <div class="grid">
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Projects</h2>
+            <span id="project-count-label">0 items</span>
+          </div>
+          <div class="projects-list" id="projects-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Summary</h2>
+            <span>Auto-calculated</span>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-card">
+              <div class="summary-label">Total Projects</div>
+              <div class="summary-value" id="summary-total">0</div>
+              <div class="summary-sub">Dev, cyber & mobile</div>
+            </div>
+            <div class="summary-card">
+              <div class="summary-label">Avg Impact Score</div>
+              <div class="summary-value" id="summary-impact">0</div>
+              <div class="summary-sub">Complexity & relevance</div>
+            </div>
+            <div class="summary-card">
+              <div class="summary-label">Completed</div>
+              <div class="summary-value" id="summary-completed">0</div>
+              <div class="summary-sub">Shipped & working</div>
+            </div>
+            <div class="summary-card">
+              <div class="summary-label">In Progress</div>
+              <div class="summary-value" id="summary-progress">0</div>
+              <div class="summary-sub">Actively building</div>
+            </div>
+          </div>
+
+          <div class="timeline" id="timeline">
+            <div class="timeline-track"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Resume -->
+    <section class="tab-panel" id="tab-resume">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Resume</h2>
+          <button class="primary-btn" onclick="window.print()">Print / Save as PDF</button>
+        </div>
+
+        <div class="resume-section">
+          <h3>Professional Summary</h3>
+          <p>Tech professional with 5+ years of IT support, quality assurance, and systems experience pivoting into application development with hands-on skills in JavaScript, HTML, CSS, and GitHub Copilot. Successfully designed and delivered Harrison's Learning App — a fully functional, gamified K–5 educational application built with GitHub Copilot, JavaScript, PostgreSQL, and REST API integration — from concept to completion (May–September 2026). Strong foundation in technical documentation, structured troubleshooting, workflow logic, and QA testing provides a direct bridge into professional app development. Currently pursuing a B.S. in Cybersecurity at Southern New Hampshire University and CompTIA A+ certification, with independent project development as proof of self-driven technical growth.</p>
+        </div>
+
+        <div class="resume-section">
+          <h3>Projects</h3>
+          <div class="job">
+            <div class="job-title">Harrison's Learning App | Personal Project</div>
+            <div class="job-meta">May 2026 – September 2026</div>
+            <ul>
+              <li>Designed and built a full-featured K–5 educational web application using GitHub as the primary development platform, targeting spelling, grammar, and mathematics learning modules.</li>
+              <li>Implemented JavaScript (ES6+) logic for dynamic content rendering, gamified quiz interfaces, user progress tracking, and responsive module navigation across multiple app components.</li>
+              <li>Connected a PostgreSQL database to manage user records, lesson content, and performance metrics via structured SQL queries supporting real-time data retrieval and display.</li>
+              <li>Integrated REST APIs to pull external educational content and surface it within the app's component-based interface.</li>
+              <li>Applied QA testing methodology to identify and resolve UI bugs, data binding issues, and query performance bottlenecks — drawing directly on prior Tier II and QA experience.</li>
+              <li>Wrote comprehensive technical documentation covering app architecture, data flow diagrams, and component behavior for long-term maintainability.</li>
+              <li>Outcome: Delivered a fully functional, gamified learning management application demonstrating real-world JavaScript and SQL proficiency as a self-directed capstone project.</li>
+            </ul>
+          </div>
+          <div class="job">
+            <div class="job-title">CertPrep App | Personal Project</div>
+            <div class="job-meta">2026</div>
+            <ul>
+              <li>Built a mobile certification-exam study/quiz app with React Native and Expo, packaged and deployed as a standalone Android APK.</li>
+              <li>Implemented front-end UI/UX, JavaScript state management, and JSON-based question-bank data modeling.</li>
+              <li>Designed mobile-responsive, educational content with a focus on cybersecurity domain knowledge (CompTIA A+ prep).</li>
+              <li>Handled product design, architecture, debugging, and testing end-to-end as a self-directed build.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h3>Professional Experience</h3>
+
+          <div class="job">
+            <div class="job-title">Tier II Quality Assurance Manager | Goldschmitt &amp; Associates LLC</div>
+            <div class="job-meta">November 2023 – May 2025</div>
+            <ul>
+              <li>Investigated and resolved 30+ customer escalations per month by applying structured troubleshooting logic and root-cause analysis — directly mirroring application debugging workflows.</li>
+              <li>Enforced quality and compliance standards across 10+ agents, maintaining 95%+ procedural adherence, reflecting the discipline required in software QA and testing cycles.</li>
+              <li>Designed and delivered onboarding documentation and coaching programs that improved team consistency and resolution accuracy, building strong technical writing and process documentation skills.</li>
+              <li>Analyzed performance KPIs and service trends, partnering with management to identify process gaps and implement structured workflow improvements.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-title">Tier II QA Manager / Technical Support Specialist | LeapPoint</div>
+            <div class="job-meta">October 2022 – November 2023</div>
+            <ul>
+              <li>Provided Tier II support via phone, email, and Microsoft Teams for 50+ users, diagnosing system-access, software, and connectivity issues using structured troubleshooting workflows.</li>
+              <li>Resolved complex tickets using remote support tools while meeting SLA requirements, reinforcing systematic, logic-based problem-solving directly applicable to app development.</li>
+              <li>Mentored 5+ team members on support best practices and led quality initiatives that reduced repeat tickets and clarified escalation paths.</li>
+              <li>Documented support procedures and escalation workflows to improve team knowledge-sharing and service consistency.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-title">Technical Scanner / Tester – Dell Systems | Intellisol Inc.</div>
+            <div class="job-meta">May 2010 – December 2011</div>
+            <ul>
+              <li>Completed functional testing and quality verification for 100+ refurbished Dell systems per week, applying methodical test-case execution similar to software QA practices.</li>
+              <li>Diagnosed hardware failures involving motherboards, memory, and peripherals; maintained accurate repair records demonstrating strong attention to technical detail.</li>
+              <li>Identified recurring failure patterns and contributed process improvements that reduced rework and increased throughput.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-title">IS Desktop Support Technician – Project | Ohio Health</div>
+            <div class="job-meta">2010</div>
+            <ul>
+              <li>Provided onsite and remote support across healthcare facilities for desktops, laptops, printers, and remote-access systems.</li>
+              <li>Used DameWare, ticketing systems, and asset-management tools to maintain service continuity and accurate equipment records.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-title">Tier II Support Specialist – Special Project | JPMorgan Chase</div>
+            <div class="job-meta">September 2009 – October 2009</div>
+            <ul>
+              <li>Supported internal and external users with software, hardware, account access, and installation issues in a high-volume environment.</li>
+              <li>Used UltraVNC and Terminal Server for remote resolution; maintained detailed ITSM ticket documentation and escalations.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-title">Computer Information Services Specialist II | DPSCS / ITCD</div>
+            <div class="job-meta">July 2006 – July 2007</div>
+            <ul>
+              <li>Supported internal staff and public-facing systems, troubleshooting hardware and software and configuring workstations in line with agency standards.</li>
+            </ul>
+          </div>
+
+          <div class="job">
+            <div class="job-title">Desktop Support Technician | DPSCS / ITCD</div>
+            <div class="job-meta">January 2006 – April 2006</div>
+            <ul>
+              <li>Supported desktops, laptops, printers, and mobile devices across agency sites while managing help desk tickets and documentation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <h3>Additional Experience</h3>
+          <p><strong>ENTAA Care</strong> (Member of Johns Hopkins Regional) — Operator / Scheduler, 2015–2020</p>
+          <p><strong>Genco Xerox</strong> — Warehouse Scanner, 2012</p>
+          <p><strong>Mitsui-Soko USA</strong> — Logistics and Shipping Lead, 2008–2009</p>
+          <p>Additional strengths include scheduling, HIPAA-conscious operations, process improvement, inventory management, and Excel-based data tracking.</p>
+        </div>
+
+        <div class="resume-section">
+          <h3>Education &amp; Certifications</h3>
+          <div class="job">
+            <div class="job-title">Bachelor of Science in Cybersecurity | Southern New Hampshire University</div>
+            <div class="job-meta">Expected 2028</div>
+            <ul>
+              <li>Second-year student completing coursework and hands-on labs in network security, vulnerability scanning, SIEM analysis, and cybersecurity fundamentals.</li>
+            </ul>
+          </div>
+          <div class="job">
+            <div class="job-title">CompTIA A+ Certification</div>
+            <div class="job-meta">In Progress</div>
+            <ul>
+              <li>Actively studying and preparing for the CompTIA A+ certification exams.</li>
+            </ul>
+          </div>
+          <div class="job">
+            <div class="job-title">Self-Directed Technical Training | Independent</div>
+            <div class="job-meta">2025 – 2026</div>
+            <ul>
+              <li>JavaScript (ES6+), GitHub Copilot, SQL/PostgreSQL, REST API Integration, HTML/CSS.</li>
+              <li>Capstone: Completed Harrison's Learning App as a full demonstration of integrated technical skills — September 2026.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="tab-panel" id="tab-skills">
+      <div class="panel">
+        <div class="panel-header"><h2>Skills</h2></div>
+
+        <div class="skill-group">
+          <h3>Development</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">JavaScript (ES6+)</span>
+            <span class="skill-tag">SQL / PostgreSQL</span>
+            <span class="skill-tag">REST API Integration</span>
+            <span class="skill-tag">Component-Based UI Logic</span>
+            <span class="skill-tag">Application Testing &amp; Debugging</span>
+            <span class="skill-tag">PowerShell / HTML / CSS</span>
+            <span class="skill-tag">Data Binding &amp; Query Management</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Product &amp; Design</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">UI/UX Design</span>
+            <span class="skill-tag">Mobile-Responsive Design</span>
+            <span class="skill-tag">Educational Content Design</span>
+            <span class="skill-tag">Product Design &amp; Architecture</span>
+            <span class="skill-tag">JSON Data Modeling</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Platforms &amp; Tools</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">GitHub / GitHub Copilot</span>
+            <span class="skill-tag">Microsoft 365 &amp; Azure AD</span>
+            <span class="skill-tag">Workflow Automation</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3>Cybersecurity &amp; Professional</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Cybersecurity Domain Knowledge</span>
+            <span class="skill-tag">Technical Documentation</span>
+            <span class="skill-tag">Cross-functional Collaboration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="tab-panel" id="tab-contact">
+      <div class="panel">
+        <div class="panel-header"><h2>Contact</h2></div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="label">Email</div>
+            <div class="value"><a href="mailto:shirellaldridge249@gmail.com">shirellaldridge249@gmail.com</a></div>
+          </div>
+          <div class="contact-card">
+            <div class="label">Phone</div>
+            <div class="value"><a href="tel:+14104197536">410-419-7536</a></div>
+          </div>
+          <div class="contact-card">
+            <div class="label">Location</div>
+            <div class="value">Lumberton, NC 28358</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Data is stored locally in your browser (localStorage).</span>
+      <a href="#" id="export-btn">Export JSON snapshot</a>
+    </div>
+  </div>
+
+  <script>
+    // --- Seed data: edit this array to add/update projects ---
+    // status: "Completed" | "In Progress"
+    const defaultProjects = [
+      {
+        id: 1,
+        title: "Harrison's Learning App",
+        type: "Education / Web App",
+        stack: ["JavaScript (ES6+)", "PostgreSQL", "REST API", "GitHub Copilot"],
+        description: "Fully functional, gamified K-5 educational web application covering spelling, grammar, and math modules, with a PostgreSQL-backed data layer and REST API integration.",
+        impactScore: 95,
+        complexity: "Production",
+        status: "Completed",
+        year: 2026
+      },
+      {
+        id: 2,
+        title: "CertPrep App",
+        type: "Mobile App",
+        stack: ["React Native", "Expo", "JavaScript", "JSON Data Modeling"],
+        description: "Certification exam study/quiz app (CompTIA A+ focus) built with React Native and Expo, packaged and installed as an Android APK.",
+        impactScore: 90,
+        complexity: "Production",
+        status: "Completed",
+        year: 2026
+      }
+      // Add "In Progress" projects here as you start them, e.g.:
+      // {
+      //   id: 3,
+      //   title: "Your Next Project",
+      //   type: "Cybersecurity",
+      //   stack: ["..."],
+      //   description: "...",
+      //   impactScore: 0,
+      //   complexity: "Early Build",
+      //   status: "In Progress",
+      //   year: 2026
+      // }
+    ];
+
+    const STORAGE_KEY = "shirell_portfolio_projects_v2";
+    const META_KEY = "shirell_portfolio_meta_v2";
+
+    function loadProjects() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try { return JSON.parse(stored); } catch { return defaultProjects; }
+      }
+      return defaultProjects;
+    }
+
+    function saveProjects(projects) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+      localStorage.setItem(META_KEY, JSON.stringify({ lastUpdated: new Date().toISOString() }));
+    }
+
+    function renderProjects(projects) {
+      const listEl = document.getElementById("projects-list");
+      const countLabel = document.getElementById("project-count-label");
+      listEl.innerHTML = "";
+      countLabel.textContent = `${projects.length} items`;
+
+      projects.forEach((p) => {
+        const card = document.createElement("div");
+        card.className = "project-card";
+
+        const main = document.createElement("div");
+        main.className = "project-main";
+
+        const title = document.createElement("div");
+        title.className = "project-title";
+        title.textContent = p.title;
+
+        const meta = document.createElement("div");
+        meta.className = "project-meta";
+        meta.textContent = `${p.type} • ${p.complexity} • ${p.year}`;
+
+        const tags = document.createElement("div");
+        tags.className = "project-tags";
+
+        p.stack.forEach((t) => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = t;
+          tags.appendChild(tag);
+        });
+
+        const typeTag = document.createElement("span");
+        typeTag.className = "tag accent";
+        typeTag.textContent = p.type;
+        tags.appendChild(typeTag);
+
+        const statusTag = document.createElement("span");
+        statusTag.className = "tag " + (p.status === "Completed" ? "status-complete" : "status-progress");
+        statusTag.textContent = p.status || "Completed";
+        tags.appendChild(statusTag);
+
+        main.appendChild(title);
+        main.appendChild(meta);
+        main.appendChild(tags);
+
+        const score = document.createElement("div");
+        score.className = "project-score";
+
+        const label = document.createElement("div");
+        label.className = "score-label";
+        label.textContent = "Impact";
+
+        const value = document.createElement("div");
+        value.className = "score-value";
+        value.textContent = p.impactScore;
+
+        const bar = document.createElement("div");
+        bar.className = "score-bar";
+
+        const inner = document.createElement("div");
+        inner.className = "score-bar-inner";
+        inner.style.transform = `scaleX(${Math.min(p.impactScore, 100) / 100})`;
+
+        bar.appendChild(inner);
+        score.appendChild(label);
+        score.appendChild(value);
+        score.appendChild(bar);
+
+        card.appendChild(main);
+        card.appendChild(score);
+
+        card.addEventListener("click", () => {
+          alert(
+            `${p.title}\n\nType: ${p.type}\nStatus: ${p.status}\nStack: ${p.stack.join(", ")}\nImpact Score: ${p.impactScore}\n\n${p.description}`
+          );
+        });
+
+        listEl.appendChild(card);
+      });
+    }
+
+    function renderSummary(projects) {
+      const totalEl = document.getElementById("summary-total");
+      const impactEl = document.getElementById("summary-impact");
+      const completedEl = document.getElementById("summary-completed");
+      const progressEl = document.getElementById("summary-progress");
+
+      const total = projects.length;
+      const avgImpact = total === 0 ? 0 : Math.round(projects.reduce((sum, p) => sum + (p.impactScore || 0), 0) / total);
+      const completedCount = projects.filter((p) => p.status === "Completed").length;
+      const progressCount = projects.filter((p) => p.status === "In Progress").length;
+
+      totalEl.textContent = total;
+      impactEl.textContent = avgImpact;
+      completedEl.textContent = completedCount;
+      progressEl.textContent = progressCount;
+
+      renderTimeline(projects);
+    }
+
+    function renderTimeline(projects) {
+      const timeline = document.getElementById("timeline");
+      timeline.querySelectorAll(".timeline-dot").forEach((d) => d.remove());
+      if (projects.length === 0) return;
+
+      const years = projects.map((p) => p.year || new Date().getFullYear());
+      const minYear = Math.min(...years);
+      const maxYear = Math.max(...years);
+      const span = maxYear - minYear || 1;
+
+      projects.forEach((p) => {
+        const dot = document.createElement("div");
+        dot.className = "timeline-dot";
+        const ratio = (p.year - minYear) / span;
+        const left = 10 + ratio * (timeline.clientWidth - 40);
+        dot.style.left = `${left}px`;
+        if (p.status === "Completed") dot.classList.add("strong");
+        timeline.appendChild(dot);
+      });
+    }
+
+    function exportSnapshot(projects) {
+      const blob = new Blob([JSON.stringify(projects, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "shirell-portfolio-snapshot.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // --- Tabs ---
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById(`tab-${btn.dataset.tab}`).classList.add("active");
+      });
+    });
+
+    // --- Init ---
+    const projects = loadProjects();
+    saveProjects(projects);
+    renderProjects(projects);
+    renderSummary(projects);
+
+    document.getElementById("export-btn").addEventListener("click", (e) => {
+      e.preventDefault();
+      exportSnapshot(projects);
+    });
+
+    // --- PWA install prompt (Android/Chrome) ---
+    let deferredPrompt;
+    const installBtn = document.getElementById("install-btn");
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "inline-flex";
+    });
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = "none";
+    });
+
+    // --- Register service worker ---
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(() => {
+          /* service worker is optional; ignore registration failures (e.g. file:// protocol) */
+        });
+      });
+    }
+  </script>
+</body>
+</html>
