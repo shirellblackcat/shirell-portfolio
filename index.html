@@ -937,8 +937,8 @@
       });
     }
 
-    function exportSnapshot(projects) {
-      const blob = new Blob([JSON.stringify(projects, null, 2)], { type: "application/json" });
+    function exportSnapshot(data) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -1051,7 +1051,12 @@
 
     document.getElementById("export-btn").addEventListener("click", (e) => {
       e.preventDefault();
-      exportSnapshot(projects);
+      exportSnapshot({
+        projects,
+        resume: resumeData,
+        skills: skillsData,
+        exportedAt: new Date().toISOString()
+      });
     });
 
     // --- Import JSON snapshot ---
@@ -1067,10 +1072,36 @@
       reader.onload = () => {
         try {
           const imported = JSON.parse(reader.result);
-          if (!Array.isArray(imported)) throw new Error("Invalid format");
-          projects = imported;
-          refresh();
-          alert("Projects imported successfully.");
+
+          // Support both the old format (a bare projects array) and the new
+          // combined format ({ projects, resume, skills }).
+          if (Array.isArray(imported)) {
+            projects = imported;
+            refresh();
+          } else if (imported && typeof imported === "object") {
+            let imported_parts = [];
+            if (Array.isArray(imported.projects)) {
+              projects = imported.projects;
+              imported_parts.push("projects");
+            }
+            if (imported.resume && typeof imported.resume === "object") {
+              resumeData = imported.resume;
+              saveResumeData();
+              renderResume();
+              imported_parts.push("resume");
+            }
+            if (Array.isArray(imported.skills)) {
+              skillsData = imported.skills;
+              saveSkillsData();
+              renderSkills();
+              imported_parts.push("skills");
+            }
+            if (imported_parts.length === 0) throw new Error("Invalid format");
+            refresh();
+          } else {
+            throw new Error("Invalid format");
+          }
+          alert("Snapshot imported successfully.");
         } catch {
           alert("Could not import file: invalid JSON format.");
         }
