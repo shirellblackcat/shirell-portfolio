@@ -173,6 +173,119 @@
 
     .panel-header span { font-size: 0.78rem; color: var(--accent-strong); }
 
+    button.secondary-btn {
+      background: #fff;
+      color: var(--accent-strong);
+      border: 1px solid var(--border);
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button.secondary-btn:hover { background: #f1f5f9; }
+
+    .project-card-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .icon-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .icon-btn:hover { border-color: var(--accent-strong); color: var(--accent-strong); }
+    .icon-btn.danger:hover { border-color: #dc2626; color: #dc2626; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 20px 24px;
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .modal-header h2 { font-size: 1.1rem; color: var(--accent); }
+
+    .modal-close {
+      border: none;
+      background: none;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .modal-close:hover { color: var(--text); }
+
+    #project-form label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    #project-form input,
+    #project-form select,
+    #project-form textarea {
+      display: block;
+      width: 100%;
+      margin-top: 4px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--text);
+    }
+
+    #project-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
     .project-card {
       border-radius: 10px;
       border: 1px solid var(--border);
@@ -351,7 +464,10 @@
         <section class="panel">
           <div class="panel-header">
             <h2>Projects</h2>
-            <span id="project-count-label">0 items</span>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span id="project-count-label">0 items</span>
+              <button class="primary-btn" id="add-project-btn">+ Add Project</button>
+            </div>
           </div>
           <div class="projects-list" id="projects-list"></div>
         </section>
@@ -610,9 +726,64 @@
 
     <div class="footer">
       <span>Data is stored locally in your browser (localStorage).</span>
-      <a href="#" id="export-btn">Export JSON snapshot</a>
+      <div style="display:flex; gap:14px;">
+        <a href="#" id="import-btn">Import JSON snapshot</a>
+        <a href="#" id="export-btn">Export JSON snapshot</a>
+      </div>
     </div>
   </div>
+
+  <!-- Add / Edit Project Modal -->
+  <div class="modal-overlay" id="project-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title">Add Project</h2>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <form id="project-form">
+        <input type="hidden" id="field-id" />
+        <label>Title
+          <input type="text" id="field-title" required />
+        </label>
+        <label>Type
+          <input type="text" id="field-type" placeholder="e.g. Cybersecurity, Mobile App" required />
+        </label>
+        <label>Tech Stack (comma-separated)
+          <input type="text" id="field-stack" placeholder="e.g. JavaScript, PostgreSQL, REST API" required />
+        </label>
+        <label>Description
+          <textarea id="field-description" rows="3" required></textarea>
+        </label>
+        <div class="form-row">
+          <label>Status
+            <select id="field-status">
+              <option value="Completed">Completed</option>
+              <option value="In Progress">In Progress</option>
+            </select>
+          </label>
+          <label>Complexity
+            <input type="text" id="field-complexity" placeholder="e.g. Production, Early Build" />
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Impact Score (0-100)
+            <input type="number" id="field-impact" min="0" max="100" value="80" />
+          </label>
+          <label>Year
+            <input type="number" id="field-year" value="2026" />
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" id="delete-project-btn" style="display:none;">Delete</button>
+          <div style="flex:1;"></div>
+          <button type="button" class="secondary-btn" id="cancel-project-btn">Cancel</button>
+          <button type="submit" class="primary-btn">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <input type="file" id="import-file-input" accept="application/json" style="display:none;" />
 
   <script>
     // --- Seed data: edit this array to add/update projects ---
@@ -738,14 +909,33 @@
         score.appendChild(value);
         score.appendChild(bar);
 
+        const actions = document.createElement("div");
+        actions.className = "project-card-actions";
+
+        const editBtn = document.createElement("button");
+        editBtn.type = "button";
+        editBtn.className = "icon-btn";
+        editBtn.textContent = "Edit";
+        editBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openProjectModal(p);
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.className = "icon-btn danger";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          deleteProject(p.id);
+        });
+
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
+        main.appendChild(actions);
+
         card.appendChild(main);
         card.appendChild(score);
-
-        card.addEventListener("click", () => {
-          alert(
-            `${p.title}\n\nType: ${p.type}\nStatus: ${p.status}\nStack: ${p.stack.join(", ")}\nImpact Score: ${p.impactScore}\n\n${p.description}`
-          );
-        });
 
         listEl.appendChild(card);
       });
@@ -813,15 +1003,124 @@
       });
     });
 
-    // --- Init ---
-    const projects = loadProjects();
+    // --- State ---
+    let projects = loadProjects();
     saveProjects(projects);
-    renderProjects(projects);
-    renderSummary(projects);
+
+    function refresh() {
+      saveProjects(projects);
+      renderProjects(projects);
+      renderSummary(projects);
+    }
+
+    refresh();
+
+    // --- Add / Edit modal ---
+    const modalOverlay = document.getElementById("project-modal-overlay");
+    const modalTitle = document.getElementById("modal-title");
+    const projectForm = document.getElementById("project-form");
+    const deleteProjectBtn = document.getElementById("delete-project-btn");
+
+    function openProjectModal(project) {
+      projectForm.reset();
+      document.getElementById("field-id").value = project ? project.id : "";
+      document.getElementById("field-title").value = project ? project.title : "";
+      document.getElementById("field-type").value = project ? project.type : "";
+      document.getElementById("field-stack").value = project ? project.stack.join(", ") : "";
+      document.getElementById("field-description").value = project ? project.description : "";
+      document.getElementById("field-status").value = project ? (project.status || "Completed") : "Completed";
+      document.getElementById("field-complexity").value = project ? project.complexity : "";
+      document.getElementById("field-impact").value = project ? project.impactScore : 80;
+      document.getElementById("field-year").value = project ? project.year : new Date().getFullYear();
+
+      modalTitle.textContent = project ? "Edit Project" : "Add Project";
+      deleteProjectBtn.style.display = project ? "inline-flex" : "none";
+      modalOverlay.classList.add("open");
+      document.getElementById("field-title").focus();
+    }
+
+    function closeProjectModal() {
+      modalOverlay.classList.remove("open");
+    }
+
+    function deleteProject(id) {
+      if (!confirm("Delete this project? This cannot be undone.")) return;
+      projects = projects.filter((p) => p.id !== id);
+      refresh();
+      closeProjectModal();
+    }
+
+    document.getElementById("add-project-btn").addEventListener("click", () => openProjectModal(null));
+    document.getElementById("modal-close-btn").addEventListener("click", closeProjectModal);
+    document.getElementById("cancel-project-btn").addEventListener("click", closeProjectModal);
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) closeProjectModal();
+    });
+    deleteProjectBtn.addEventListener("click", () => {
+      const id = Number(document.getElementById("field-id").value);
+      deleteProject(id);
+    });
+
+    projectForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const idRaw = document.getElementById("field-id").value;
+      const stack = document
+        .getElementById("field-stack")
+        .value.split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      const data = {
+        title: document.getElementById("field-title").value.trim(),
+        type: document.getElementById("field-type").value.trim(),
+        stack,
+        description: document.getElementById("field-description").value.trim(),
+        status: document.getElementById("field-status").value,
+        complexity: document.getElementById("field-complexity").value.trim() || "N/A",
+        impactScore: Math.max(0, Math.min(100, Number(document.getElementById("field-impact").value) || 0)),
+        year: Number(document.getElementById("field-year").value) || new Date().getFullYear()
+      };
+
+      if (idRaw) {
+        const id = Number(idRaw);
+        projects = projects.map((p) => (p.id === id ? { ...p, ...data } : p));
+      } else {
+        const nextId = projects.length ? Math.max(...projects.map((p) => p.id)) + 1 : 1;
+        projects.push({ id: nextId, ...data });
+      }
+
+      refresh();
+      closeProjectModal();
+    });
 
     document.getElementById("export-btn").addEventListener("click", (e) => {
       e.preventDefault();
       exportSnapshot(projects);
+    });
+
+    // --- Import JSON snapshot ---
+    const importFileInput = document.getElementById("import-file-input");
+    document.getElementById("import-btn").addEventListener("click", (e) => {
+      e.preventDefault();
+      importFileInput.click();
+    });
+    importFileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const imported = JSON.parse(reader.result);
+          if (!Array.isArray(imported)) throw new Error("Invalid format");
+          projects = imported;
+          refresh();
+          alert("Projects imported successfully.");
+        } catch {
+          alert("Could not import file: invalid JSON format.");
+        }
+        importFileInput.value = "";
+      };
+      reader.readAsText(file);
     });
 
     // --- PWA install prompt (Android/Chrome) ---
