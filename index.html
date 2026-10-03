@@ -385,6 +385,20 @@
 
     /* Resume */
     .resume-section { margin-bottom: 18px; }
+    .resume-section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent-soft);
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .resume-section-head h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-strong);
+    }
     .resume-section h3 {
       font-size: 0.85rem;
       text-transform: uppercase;
@@ -395,16 +409,18 @@
       margin-bottom: 10px;
     }
     .resume-section p { font-size: 0.92rem; color: var(--text); line-height: 1.5; margin-bottom: 8px; }
-    .job { margin-bottom: 14px; }
+    .job { margin-bottom: 14px; position: relative; }
     .job-title { font-weight: 700; font-size: 0.95rem; }
     .job-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
     .job ul { padding-left: 20px; }
     .job li { font-size: 0.88rem; margin-bottom: 4px; line-height: 1.4; }
+    .job-actions { display: flex; gap: 6px; margin-top: 6px; }
 
     /* Skills */
     .skill-group { margin-bottom: 16px; }
-    .skill-group h3 { font-size: 0.85rem; color: var(--accent-strong); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em; }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-group-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .skill-group h3 { font-size: 0.85rem; color: var(--accent-strong); text-transform: uppercase; letter-spacing: 0.08em; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     .skill-tag { padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 0.82rem; font-weight: 600; border: 1px solid var(--accent-soft); }
 
     /* Contact */
@@ -517,139 +533,43 @@
         </div>
 
         <div class="resume-section">
-          <h3>Professional Summary</h3>
-          <p>Tech professional with 5+ years of IT support, quality assurance, and systems experience pivoting into application development with hands-on skills in JavaScript, HTML, CSS, and GitHub Copilot. Successfully designed and delivered Harrison's Learning App — a fully functional, gamified K–5 educational application built with GitHub Copilot, JavaScript, PostgreSQL, and REST API integration — from concept to completion (May–September 2026). Strong foundation in technical documentation, structured troubleshooting, workflow logic, and QA testing provides a direct bridge into professional app development. Currently pursuing a B.S. in Cybersecurity at Southern New Hampshire University and CompTIA A+ certification, with independent project development as proof of self-driven technical growth.</p>
+          <div class="resume-section-head">
+            <h3>Professional Summary</h3>
+            <button type="button" class="icon-btn" id="edit-summary-btn">Edit</button>
+          </div>
+          <p id="resume-summary-text"></p>
         </div>
 
         <div class="resume-section">
-          <h3>Projects</h3>
-          <div class="job">
-            <div class="job-title">Harrison's Learning App | Personal Project</div>
-            <div class="job-meta">May 2026 – September 2026</div>
-            <ul>
-              <li>Designed and built a full-featured K–5 educational web application using GitHub as the primary development platform, targeting spelling, grammar, and mathematics learning modules.</li>
-              <li>Implemented JavaScript (ES6+) logic for dynamic content rendering, gamified quiz interfaces, user progress tracking, and responsive module navigation across multiple app components.</li>
-              <li>Connected a PostgreSQL database to manage user records, lesson content, and performance metrics via structured SQL queries supporting real-time data retrieval and display.</li>
-              <li>Integrated REST APIs to pull external educational content and surface it within the app's component-based interface.</li>
-              <li>Applied QA testing methodology to identify and resolve UI bugs, data binding issues, and query performance bottlenecks — drawing directly on prior Tier II and QA experience.</li>
-              <li>Wrote comprehensive technical documentation covering app architecture, data flow diagrams, and component behavior for long-term maintainability.</li>
-              <li>Outcome: Delivered a fully functional, gamified learning management application demonstrating real-world JavaScript and SQL proficiency as a self-directed capstone project.</li>
-            </ul>
+          <div class="resume-section-head">
+            <h3>Projects</h3>
+            <button type="button" class="icon-btn" id="add-resume-project-btn">+ Add</button>
           </div>
-          <div class="job">
-            <div class="job-title">CertPrep App | Personal Project</div>
-            <div class="job-meta">2026</div>
-            <ul>
-              <li>Built a mobile certification-exam study/quiz app with React Native and Expo, packaged and deployed as a standalone Android APK.</li>
-              <li>Implemented front-end UI/UX, JavaScript state management, and JSON-based question-bank data modeling.</li>
-              <li>Designed mobile-responsive, educational content with a focus on cybersecurity domain knowledge (CompTIA A+ prep).</li>
-              <li>Handled product design, architecture, debugging, and testing end-to-end as a self-directed build.</li>
-            </ul>
-          </div>
+          <div id="resume-projects-list"></div>
         </div>
 
         <div class="resume-section">
-          <h3>Professional Experience</h3>
-
-          <div class="job">
-            <div class="job-title">Tier II Quality Assurance Manager | Goldschmitt &amp; Associates LLC</div>
-            <div class="job-meta">November 2023 – May 2025</div>
-            <ul>
-              <li>Investigated and resolved 30+ customer escalations per month by applying structured troubleshooting logic and root-cause analysis — directly mirroring application debugging workflows.</li>
-              <li>Enforced quality and compliance standards across 10+ agents, maintaining 95%+ procedural adherence, reflecting the discipline required in software QA and testing cycles.</li>
-              <li>Designed and delivered onboarding documentation and coaching programs that improved team consistency and resolution accuracy, building strong technical writing and process documentation skills.</li>
-              <li>Analyzed performance KPIs and service trends, partnering with management to identify process gaps and implement structured workflow improvements.</li>
-            </ul>
+          <div class="resume-section-head">
+            <h3>Professional Experience</h3>
+            <button type="button" class="icon-btn" id="add-resume-experience-btn">+ Add</button>
           </div>
-
-          <div class="job">
-            <div class="job-title">Tier II QA Manager / Technical Support Specialist | LeapPoint</div>
-            <div class="job-meta">October 2022 – November 2023</div>
-            <ul>
-              <li>Provided Tier II support via phone, email, and Microsoft Teams for 50+ users, diagnosing system-access, software, and connectivity issues using structured troubleshooting workflows.</li>
-              <li>Resolved complex tickets using remote support tools while meeting SLA requirements, reinforcing systematic, logic-based problem-solving directly applicable to app development.</li>
-              <li>Mentored 5+ team members on support best practices and led quality initiatives that reduced repeat tickets and clarified escalation paths.</li>
-              <li>Documented support procedures and escalation workflows to improve team knowledge-sharing and service consistency.</li>
-            </ul>
-          </div>
-
-          <div class="job">
-            <div class="job-title">Technical Scanner / Tester – Dell Systems | Intellisol Inc.</div>
-            <div class="job-meta">May 2010 – December 2011</div>
-            <ul>
-              <li>Completed functional testing and quality verification for 100+ refurbished Dell systems per week, applying methodical test-case execution similar to software QA practices.</li>
-              <li>Diagnosed hardware failures involving motherboards, memory, and peripherals; maintained accurate repair records demonstrating strong attention to technical detail.</li>
-              <li>Identified recurring failure patterns and contributed process improvements that reduced rework and increased throughput.</li>
-            </ul>
-          </div>
-
-          <div class="job">
-            <div class="job-title">IS Desktop Support Technician – Project | Ohio Health</div>
-            <div class="job-meta">2010</div>
-            <ul>
-              <li>Provided onsite and remote support across healthcare facilities for desktops, laptops, printers, and remote-access systems.</li>
-              <li>Used DameWare, ticketing systems, and asset-management tools to maintain service continuity and accurate equipment records.</li>
-            </ul>
-          </div>
-
-          <div class="job">
-            <div class="job-title">Tier II Support Specialist – Special Project | JPMorgan Chase</div>
-            <div class="job-meta">September 2009 – October 2009</div>
-            <ul>
-              <li>Supported internal and external users with software, hardware, account access, and installation issues in a high-volume environment.</li>
-              <li>Used UltraVNC and Terminal Server for remote resolution; maintained detailed ITSM ticket documentation and escalations.</li>
-            </ul>
-          </div>
-
-          <div class="job">
-            <div class="job-title">Computer Information Services Specialist II | DPSCS / ITCD</div>
-            <div class="job-meta">July 2006 – July 2007</div>
-            <ul>
-              <li>Supported internal staff and public-facing systems, troubleshooting hardware and software and configuring workstations in line with agency standards.</li>
-            </ul>
-          </div>
-
-          <div class="job">
-            <div class="job-title">Desktop Support Technician | DPSCS / ITCD</div>
-            <div class="job-meta">January 2006 – April 2006</div>
-            <ul>
-              <li>Supported desktops, laptops, printers, and mobile devices across agency sites while managing help desk tickets and documentation.</li>
-            </ul>
-          </div>
+          <div id="resume-experience-list"></div>
         </div>
 
         <div class="resume-section">
-          <h3>Additional Experience</h3>
-          <p><strong>ENTAA Care</strong> (Member of Johns Hopkins Regional) — Operator / Scheduler, 2015–2020</p>
-          <p><strong>Genco Xerox</strong> — Warehouse Scanner, 2012</p>
-          <p><strong>Mitsui-Soko USA</strong> — Logistics and Shipping Lead, 2008–2009</p>
-          <p>Additional strengths include scheduling, HIPAA-conscious operations, process improvement, inventory management, and Excel-based data tracking.</p>
+          <div class="resume-section-head">
+            <h3>Additional Experience</h3>
+            <button type="button" class="icon-btn" id="edit-additional-btn">Edit</button>
+          </div>
+          <div id="resume-additional-text"></div>
         </div>
 
         <div class="resume-section">
-          <h3>Education &amp; Certifications</h3>
-          <div class="job">
-            <div class="job-title">Bachelor of Science in Cybersecurity | Southern New Hampshire University</div>
-            <div class="job-meta">Expected 2028</div>
-            <ul>
-              <li>Second-year student completing coursework and hands-on labs in network security, vulnerability scanning, SIEM analysis, and cybersecurity fundamentals.</li>
-            </ul>
+          <div class="resume-section-head">
+            <h3>Education &amp; Certifications</h3>
+            <button type="button" class="icon-btn" id="add-resume-education-btn">+ Add</button>
           </div>
-          <div class="job">
-            <div class="job-title">CompTIA A+ Certification</div>
-            <div class="job-meta">In Progress</div>
-            <ul>
-              <li>Actively studying and preparing for the CompTIA A+ certification exams.</li>
-            </ul>
-          </div>
-          <div class="job">
-            <div class="job-title">Self-Directed Technical Training | Independent</div>
-            <div class="job-meta">2025 – 2026</div>
-            <ul>
-              <li>JavaScript (ES6+), GitHub Copilot, SQL/PostgreSQL, REST API Integration, HTML/CSS.</li>
-              <li>Capstone: Completed Harrison's Learning App as a full demonstration of integrated technical skills — September 2026.</li>
-            </ul>
-          </div>
+          <div id="resume-education-list"></div>
         </div>
       </div>
     </section>
@@ -657,49 +577,11 @@
     <!-- Skills -->
     <section class="tab-panel" id="tab-skills">
       <div class="panel">
-        <div class="panel-header"><h2>Skills</h2></div>
-
-        <div class="skill-group">
-          <h3>Development</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">JavaScript (ES6+)</span>
-            <span class="skill-tag">SQL / PostgreSQL</span>
-            <span class="skill-tag">REST API Integration</span>
-            <span class="skill-tag">Component-Based UI Logic</span>
-            <span class="skill-tag">Application Testing &amp; Debugging</span>
-            <span class="skill-tag">PowerShell / HTML / CSS</span>
-            <span class="skill-tag">Data Binding &amp; Query Management</span>
-          </div>
+        <div class="panel-header">
+          <h2>Skills</h2>
+          <button class="primary-btn" id="add-skill-group-btn">+ Add Group</button>
         </div>
-
-        <div class="skill-group">
-          <h3>Product &amp; Design</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">UI/UX Design</span>
-            <span class="skill-tag">Mobile-Responsive Design</span>
-            <span class="skill-tag">Educational Content Design</span>
-            <span class="skill-tag">Product Design &amp; Architecture</span>
-            <span class="skill-tag">JSON Data Modeling</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h3>Platforms &amp; Tools</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">GitHub / GitHub Copilot</span>
-            <span class="skill-tag">Microsoft 365 &amp; Azure AD</span>
-            <span class="skill-tag">Workflow Automation</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <h3>Cybersecurity &amp; Professional</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Cybersecurity Domain Knowledge</span>
-            <span class="skill-tag">Technical Documentation</span>
-            <span class="skill-tag">Cross-functional Collaboration</span>
-          </div>
-        </div>
+        <div id="skills-list"></div>
       </div>
     </section>
 
@@ -784,6 +666,80 @@
   </div>
 
   <input type="file" id="import-file-input" accept="application/json" style="display:none;" />
+
+  <!-- Add / Edit Resume Entry Modal (Projects, Experience, Education) -->
+  <div class="modal-overlay" id="entry-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="entry-modal-title">Add Entry</h2>
+        <button class="modal-close" id="entry-modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <form id="entry-form">
+        <input type="hidden" id="entry-field-id" />
+        <input type="hidden" id="entry-field-list" />
+        <label>Title / Role
+          <input type="text" id="entry-field-title" placeholder="e.g. Job Title | Company" required />
+        </label>
+        <label>Dates / Meta
+          <input type="text" id="entry-field-meta" placeholder="e.g. Jan 2024 – Present" />
+        </label>
+        <label>Bullet Points (one per line)
+          <textarea id="entry-field-bullets" rows="5" placeholder="One accomplishment per line"></textarea>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" id="entry-delete-btn" style="display:none;">Delete</button>
+          <div style="flex:1;"></div>
+          <button type="button" class="secondary-btn" id="entry-cancel-btn">Cancel</button>
+          <button type="submit" class="primary-btn">Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Plain Text Modal (Summary, Additional Experience) -->
+  <div class="modal-overlay" id="text-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="text-modal-title">Edit Text</h2>
+        <button class="modal-close" id="text-modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <form id="text-form">
+        <label id="text-field-label">Content
+          <textarea id="text-field-content" rows="8"></textarea>
+        </label>
+        <div class="modal-actions">
+          <div style="flex:1;"></div>
+          <button type="button" class="secondary-btn" id="text-cancel-btn">Cancel</button>
+          <button type="submit" class="primary-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Skill Group Modal -->
+  <div class="modal-overlay" id="skill-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="skill-modal-title">Add Skill Group</h2>
+        <button class="modal-close" id="skill-modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <form id="skill-form">
+        <input type="hidden" id="skill-field-id" />
+        <label>Group Name
+          <input type="text" id="skill-field-name" placeholder="e.g. Development" required />
+        </label>
+        <label>Skills (comma-separated)
+          <textarea id="skill-field-tags" rows="3" placeholder="e.g. JavaScript, SQL, REST API" required></textarea>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" id="skill-delete-btn" style="display:none;">Delete Group</button>
+          <div style="flex:1;"></div>
+          <button type="button" class="secondary-btn" id="skill-cancel-btn">Cancel</button>
+          <button type="submit" class="primary-btn">Save Group</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script>
     // --- Seed data: edit this array to add/update projects ---
@@ -1121,6 +1077,484 @@
         importFileInput.value = "";
       };
       reader.readAsText(file);
+    });
+
+    // =========================================================
+    // Resume data: summary, projects, experience, additional, education
+    // =========================================================
+    const defaultResumeData = {
+      summary:
+        "Tech professional with 5+ years of IT support, quality assurance, and systems experience pivoting into application development with hands-on skills in JavaScript, HTML, CSS, and GitHub Copilot. Successfully designed and delivered Harrison's Learning App — a fully functional, gamified K–5 educational application built with GitHub Copilot, JavaScript, PostgreSQL, and REST API integration — from concept to completion (May–September 2026). Strong foundation in technical documentation, structured troubleshooting, workflow logic, and QA testing provides a direct bridge into professional app development. Currently pursuing a B.S. in Cybersecurity at Southern New Hampshire University and CompTIA A+ certification, with independent project development as proof of self-driven technical growth.",
+      projects: [
+        {
+          id: 1,
+          title: "Harrison's Learning App | Personal Project",
+          meta: "May 2026 – September 2026",
+          bullets: [
+            "Designed and built a full-featured K–5 educational web application using GitHub as the primary development platform, targeting spelling, grammar, and mathematics learning modules.",
+            "Implemented JavaScript (ES6+) logic for dynamic content rendering, gamified quiz interfaces, user progress tracking, and responsive module navigation across multiple app components.",
+            "Connected a PostgreSQL database to manage user records, lesson content, and performance metrics via structured SQL queries supporting real-time data retrieval and display.",
+            "Integrated REST APIs to pull external educational content and surface it within the app's component-based interface.",
+            "Applied QA testing methodology to identify and resolve UI bugs, data binding issues, and query performance bottlenecks — drawing directly on prior Tier II and QA experience.",
+            "Wrote comprehensive technical documentation covering app architecture, data flow diagrams, and component behavior for long-term maintainability.",
+            "Outcome: Delivered a fully functional, gamified learning management application demonstrating real-world JavaScript and SQL proficiency as a self-directed capstone project."
+          ]
+        },
+        {
+          id: 2,
+          title: "CertPrep App | Personal Project",
+          meta: "2026",
+          bullets: [
+            "Built a mobile certification-exam study/quiz app with React Native and Expo, packaged and deployed as a standalone Android APK.",
+            "Implemented front-end UI/UX, JavaScript state management, and JSON-based question-bank data modeling.",
+            "Designed mobile-responsive, educational content with a focus on cybersecurity domain knowledge (CompTIA A+ prep).",
+            "Handled product design, architecture, debugging, and testing end-to-end as a self-directed build."
+          ]
+        }
+      ],
+      experience: [
+        {
+          id: 1,
+          title: "Tier II Quality Assurance Manager | Goldschmitt & Associates LLC",
+          meta: "November 2023 – May 2025",
+          bullets: [
+            "Investigated and resolved 30+ customer escalations per month by applying structured troubleshooting logic and root-cause analysis — directly mirroring application debugging workflows.",
+            "Enforced quality and compliance standards across 10+ agents, maintaining 95%+ procedural adherence, reflecting the discipline required in software QA and testing cycles.",
+            "Designed and delivered onboarding documentation and coaching programs that improved team consistency and resolution accuracy, building strong technical writing and process documentation skills.",
+            "Analyzed performance KPIs and service trends, partnering with management to identify process gaps and implement structured workflow improvements."
+          ]
+        },
+        {
+          id: 2,
+          title: "Tier II QA Manager / Technical Support Specialist | LeapPoint",
+          meta: "October 2022 – November 2023",
+          bullets: [
+            "Provided Tier II support via phone, email, and Microsoft Teams for 50+ users, diagnosing system-access, software, and connectivity issues using structured troubleshooting workflows.",
+            "Resolved complex tickets using remote support tools while meeting SLA requirements, reinforcing systematic, logic-based problem-solving directly applicable to app development.",
+            "Mentored 5+ team members on support best practices and led quality initiatives that reduced repeat tickets and clarified escalation paths.",
+            "Documented support procedures and escalation workflows to improve team knowledge-sharing and service consistency."
+          ]
+        },
+        {
+          id: 3,
+          title: "Technical Scanner / Tester – Dell Systems | Intellisol Inc.",
+          meta: "May 2010 – December 2011",
+          bullets: [
+            "Completed functional testing and quality verification for 100+ refurbished Dell systems per week, applying methodical test-case execution similar to software QA practices.",
+            "Diagnosed hardware failures involving motherboards, memory, and peripherals; maintained accurate repair records demonstrating strong attention to technical detail.",
+            "Identified recurring failure patterns and contributed process improvements that reduced rework and increased throughput."
+          ]
+        },
+        {
+          id: 4,
+          title: "IS Desktop Support Technician – Project | Ohio Health",
+          meta: "2010",
+          bullets: [
+            "Provided onsite and remote support across healthcare facilities for desktops, laptops, printers, and remote-access systems.",
+            "Used DameWare, ticketing systems, and asset-management tools to maintain service continuity and accurate equipment records."
+          ]
+        },
+        {
+          id: 5,
+          title: "Tier II Support Specialist – Special Project | JPMorgan Chase",
+          meta: "September 2009 – October 2009",
+          bullets: [
+            "Supported internal and external users with software, hardware, account access, and installation issues in a high-volume environment.",
+            "Used UltraVNC and Terminal Server for remote resolution; maintained detailed ITSM ticket documentation and escalations."
+          ]
+        },
+        {
+          id: 6,
+          title: "Computer Information Services Specialist II | DPSCS / ITCD",
+          meta: "July 2006 – July 2007",
+          bullets: [
+            "Supported internal staff and public-facing systems, troubleshooting hardware and software and configuring workstations in line with agency standards."
+          ]
+        },
+        {
+          id: 7,
+          title: "Desktop Support Technician | DPSCS / ITCD",
+          meta: "January 2006 – April 2006",
+          bullets: [
+            "Supported desktops, laptops, printers, and mobile devices across agency sites while managing help desk tickets and documentation."
+          ]
+        }
+      ],
+      additional: [
+        "ENTAA Care (Member of Johns Hopkins Regional) — Operator / Scheduler, 2015–2020",
+        "Genco Xerox — Warehouse Scanner, 2012",
+        "Mitsui-Soko USA — Logistics and Shipping Lead, 2008–2009",
+        "Additional strengths include scheduling, HIPAA-conscious operations, process improvement, inventory management, and Excel-based data tracking."
+      ],
+      education: [
+        {
+          id: 1,
+          title: "Bachelor of Science in Cybersecurity | Southern New Hampshire University",
+          meta: "Expected 2028",
+          bullets: [
+            "Second-year student completing coursework and hands-on labs in network security, vulnerability scanning, SIEM analysis, and cybersecurity fundamentals."
+          ]
+        },
+        {
+          id: 2,
+          title: "CompTIA A+ Certification",
+          meta: "In Progress",
+          bullets: ["Actively studying and preparing for the CompTIA A+ certification exams."]
+        },
+        {
+          id: 3,
+          title: "Self-Directed Technical Training | Independent",
+          meta: "2025 – 2026",
+          bullets: [
+            "JavaScript (ES6+), GitHub Copilot, SQL/PostgreSQL, REST API Integration, HTML/CSS.",
+            "Capstone: Completed Harrison's Learning App as a full demonstration of integrated technical skills — September 2026."
+          ]
+        }
+      ]
+    };
+
+    const defaultSkillsData = [
+      { id: 1, name: "Development", skills: ["JavaScript (ES6+)", "SQL / PostgreSQL", "REST API Integration", "Component-Based UI Logic", "Application Testing & Debugging", "PowerShell / HTML / CSS", "Data Binding & Query Management"] },
+      { id: 2, name: "Product & Design", skills: ["UI/UX Design", "Mobile-Responsive Design", "Educational Content Design", "Product Design & Architecture", "JSON Data Modeling"] },
+      { id: 3, name: "Platforms & Tools", skills: ["GitHub / GitHub Copilot", "Microsoft 365 & Azure AD", "Workflow Automation"] },
+      { id: 4, name: "Cybersecurity & Professional", skills: ["Cybersecurity Domain Knowledge", "Technical Documentation", "Cross-functional Collaboration"] }
+    ];
+
+    const RESUME_KEY = "shirell_portfolio_resume_v1";
+    const SKILLS_KEY = "shirell_portfolio_skills_v1";
+
+    function loadResumeData() {
+      const stored = localStorage.getItem(RESUME_KEY);
+      if (stored) {
+        try { return JSON.parse(stored); } catch { return defaultResumeData; }
+      }
+      return defaultResumeData;
+    }
+
+    function loadSkillsData() {
+      const stored = localStorage.getItem(SKILLS_KEY);
+      if (stored) {
+        try { return JSON.parse(stored); } catch { return defaultSkillsData; }
+      }
+      return defaultSkillsData;
+    }
+
+    function saveResumeData() {
+      localStorage.setItem(RESUME_KEY, JSON.stringify(resumeData));
+    }
+
+    function saveSkillsData() {
+      localStorage.setItem(SKILLS_KEY, JSON.stringify(skillsData));
+    }
+
+    let resumeData = loadResumeData();
+    let skillsData = loadSkillsData();
+
+    function escapeHtml(str) {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function renderJobEntry(entry, listKey) {
+      const job = document.createElement("div");
+      job.className = "job";
+
+      const title = document.createElement("div");
+      title.className = "job-title";
+      title.textContent = entry.title;
+
+      const meta = document.createElement("div");
+      meta.className = "job-meta";
+      meta.textContent = entry.meta || "";
+
+      const ul = document.createElement("ul");
+      (entry.bullets || []).forEach((b) => {
+        const li = document.createElement("li");
+        li.textContent = b;
+        ul.appendChild(li);
+      });
+
+      const actions = document.createElement("div");
+      actions.className = "job-actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.type = "button";
+      editBtn.className = "icon-btn";
+      editBtn.textContent = "Edit";
+      editBtn.addEventListener("click", () => openEntryModal(listKey, entry));
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.className = "icon-btn danger";
+      deleteBtn.textContent = "Delete";
+      deleteBtn.addEventListener("click", () => deleteEntry(listKey, entry.id));
+
+      actions.appendChild(editBtn);
+      actions.appendChild(deleteBtn);
+
+      job.appendChild(title);
+      job.appendChild(meta);
+      job.appendChild(ul);
+      job.appendChild(actions);
+      return job;
+    }
+
+    function renderResume() {
+      document.getElementById("resume-summary-text").textContent = resumeData.summary;
+
+      const projectsList = document.getElementById("resume-projects-list");
+      projectsList.innerHTML = "";
+      resumeData.projects.forEach((entry) => projectsList.appendChild(renderJobEntry(entry, "projects")));
+
+      const experienceList = document.getElementById("resume-experience-list");
+      experienceList.innerHTML = "";
+      resumeData.experience.forEach((entry) => experienceList.appendChild(renderJobEntry(entry, "experience")));
+
+      const additionalEl = document.getElementById("resume-additional-text");
+      additionalEl.innerHTML = "";
+      resumeData.additional.forEach((line) => {
+        const p = document.createElement("p");
+        p.textContent = line;
+        additionalEl.appendChild(p);
+      });
+
+      const educationList = document.getElementById("resume-education-list");
+      educationList.innerHTML = "";
+      resumeData.education.forEach((entry) => educationList.appendChild(renderJobEntry(entry, "education")));
+    }
+
+    function renderSkills() {
+      const listEl = document.getElementById("skills-list");
+      listEl.innerHTML = "";
+      skillsData.forEach((group) => {
+        const groupEl = document.createElement("div");
+        groupEl.className = "skill-group";
+
+        const head = document.createElement("div");
+        head.className = "skill-group-head";
+
+        const h3 = document.createElement("h3");
+        h3.textContent = group.name;
+
+        const btnWrap = document.createElement("div");
+        btnWrap.style.display = "flex";
+        btnWrap.style.gap = "6px";
+
+        const editBtn = document.createElement("button");
+        editBtn.type = "button";
+        editBtn.className = "icon-btn";
+        editBtn.textContent = "Edit";
+        editBtn.addEventListener("click", () => openSkillModal(group));
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.className = "icon-btn danger";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => deleteSkillGroup(group.id));
+
+        btnWrap.appendChild(editBtn);
+        btnWrap.appendChild(deleteBtn);
+        head.appendChild(h3);
+        head.appendChild(btnWrap);
+
+        const tags = document.createElement("div");
+        tags.className = "skill-tags";
+        group.skills.forEach((s) => {
+          const tag = document.createElement("span");
+          tag.className = "skill-tag";
+          tag.textContent = s;
+          tags.appendChild(tag);
+        });
+
+        groupEl.appendChild(head);
+        groupEl.appendChild(tags);
+        listEl.appendChild(groupEl);
+      });
+    }
+
+    renderResume();
+    renderSkills();
+
+    // --- Resume entry modal (Projects / Experience / Education) ---
+    const entryModalOverlay = document.getElementById("entry-modal-overlay");
+    const entryModalTitle = document.getElementById("entry-modal-title");
+    const entryForm = document.getElementById("entry-form");
+    const entryDeleteBtn = document.getElementById("entry-delete-btn");
+
+    const listLabels = { projects: "Project", experience: "Experience", education: "Education" };
+
+    function openEntryModal(listKey, entry) {
+      entryForm.reset();
+      document.getElementById("entry-field-id").value = entry ? entry.id : "";
+      document.getElementById("entry-field-list").value = listKey;
+      document.getElementById("entry-field-title").value = entry ? entry.title : "";
+      document.getElementById("entry-field-meta").value = entry ? entry.meta : "";
+      document.getElementById("entry-field-bullets").value = entry ? (entry.bullets || []).join("\n") : "";
+      entryModalTitle.textContent = `${entry ? "Edit" : "Add"} ${listLabels[listKey]}`;
+      entryDeleteBtn.style.display = entry ? "inline-flex" : "none";
+      entryModalOverlay.classList.add("open");
+      document.getElementById("entry-field-title").focus();
+    }
+
+    function closeEntryModal() {
+      entryModalOverlay.classList.remove("open");
+    }
+
+    function deleteEntry(listKey, id) {
+      if (!confirm("Delete this entry? This cannot be undone.")) return;
+      resumeData[listKey] = resumeData[listKey].filter((e) => e.id !== id);
+      saveResumeData();
+      renderResume();
+      closeEntryModal();
+    }
+
+    document.getElementById("add-resume-project-btn").addEventListener("click", () => openEntryModal("projects", null));
+    document.getElementById("add-resume-experience-btn").addEventListener("click", () => openEntryModal("experience", null));
+    document.getElementById("add-resume-education-btn").addEventListener("click", () => openEntryModal("education", null));
+    document.getElementById("entry-modal-close-btn").addEventListener("click", closeEntryModal);
+    document.getElementById("entry-cancel-btn").addEventListener("click", closeEntryModal);
+    entryModalOverlay.addEventListener("click", (e) => { if (e.target === entryModalOverlay) closeEntryModal(); });
+    entryDeleteBtn.addEventListener("click", () => {
+      const listKey = document.getElementById("entry-field-list").value;
+      const id = Number(document.getElementById("entry-field-id").value);
+      deleteEntry(listKey, id);
+    });
+
+    entryForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const listKey = document.getElementById("entry-field-list").value;
+      const idRaw = document.getElementById("entry-field-id").value;
+      const bullets = document
+        .getElementById("entry-field-bullets")
+        .value.split("\n")
+        .map((b) => b.trim())
+        .filter(Boolean);
+
+      const data = {
+        title: document.getElementById("entry-field-title").value.trim(),
+        meta: document.getElementById("entry-field-meta").value.trim(),
+        bullets
+      };
+
+      if (idRaw) {
+        const id = Number(idRaw);
+        resumeData[listKey] = resumeData[listKey].map((e) => (e.id === id ? { ...e, ...data } : e));
+      } else {
+        const list = resumeData[listKey];
+        const nextId = list.length ? Math.max(...list.map((e) => e.id)) + 1 : 1;
+        list.push({ id: nextId, ...data });
+      }
+
+      saveResumeData();
+      renderResume();
+      closeEntryModal();
+    });
+
+    // --- Plain text modal (Summary / Additional Experience) ---
+    const textModalOverlay = document.getElementById("text-modal-overlay");
+    const textModalTitle = document.getElementById("text-modal-title");
+    const textForm = document.getElementById("text-form");
+    const textFieldContent = document.getElementById("text-field-content");
+    let textModalTarget = null; // "summary" | "additional"
+
+    function openTextModal(target) {
+      textModalTarget = target;
+      if (target === "summary") {
+        textModalTitle.textContent = "Edit Professional Summary";
+        textFieldContent.value = resumeData.summary;
+      } else {
+        textModalTitle.textContent = "Edit Additional Experience (one line per entry)";
+        textFieldContent.value = resumeData.additional.join("\n");
+      }
+      textModalOverlay.classList.add("open");
+      textFieldContent.focus();
+    }
+
+    function closeTextModal() {
+      textModalOverlay.classList.remove("open");
+    }
+
+    document.getElementById("edit-summary-btn").addEventListener("click", () => openTextModal("summary"));
+    document.getElementById("edit-additional-btn").addEventListener("click", () => openTextModal("additional"));
+    document.getElementById("text-modal-close-btn").addEventListener("click", closeTextModal);
+    document.getElementById("text-cancel-btn").addEventListener("click", closeTextModal);
+    textModalOverlay.addEventListener("click", (e) => { if (e.target === textModalOverlay) closeTextModal(); });
+
+    textForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (textModalTarget === "summary") {
+        resumeData.summary = textFieldContent.value.trim();
+      } else {
+        resumeData.additional = textFieldContent.value
+          .split("\n")
+          .map((l) => l.trim())
+          .filter(Boolean);
+      }
+      saveResumeData();
+      renderResume();
+      closeTextModal();
+    });
+
+    // --- Skill group modal ---
+    const skillModalOverlay = document.getElementById("skill-modal-overlay");
+    const skillModalTitle = document.getElementById("skill-modal-title");
+    const skillForm = document.getElementById("skill-form");
+    const skillDeleteBtn = document.getElementById("skill-delete-btn");
+
+    function openSkillModal(group) {
+      skillForm.reset();
+      document.getElementById("skill-field-id").value = group ? group.id : "";
+      document.getElementById("skill-field-name").value = group ? group.name : "";
+      document.getElementById("skill-field-tags").value = group ? group.skills.join(", ") : "";
+      skillModalTitle.textContent = group ? "Edit Skill Group" : "Add Skill Group";
+      skillDeleteBtn.style.display = group ? "inline-flex" : "none";
+      skillModalOverlay.classList.add("open");
+      document.getElementById("skill-field-name").focus();
+    }
+
+    function closeSkillModal() {
+      skillModalOverlay.classList.remove("open");
+    }
+
+    function deleteSkillGroup(id) {
+      if (!confirm("Delete this skill group? This cannot be undone.")) return;
+      skillsData = skillsData.filter((g) => g.id !== id);
+      saveSkillsData();
+      renderSkills();
+      closeSkillModal();
+    }
+
+    document.getElementById("add-skill-group-btn").addEventListener("click", () => openSkillModal(null));
+    document.getElementById("skill-modal-close-btn").addEventListener("click", closeSkillModal);
+    document.getElementById("skill-cancel-btn").addEventListener("click", closeSkillModal);
+    skillModalOverlay.addEventListener("click", (e) => { if (e.target === skillModalOverlay) closeSkillModal(); });
+    skillDeleteBtn.addEventListener("click", () => {
+      const id = Number(document.getElementById("skill-field-id").value);
+      deleteSkillGroup(id);
+    });
+
+    skillForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const idRaw = document.getElementById("skill-field-id").value;
+      const skills = document
+        .getElementById("skill-field-tags")
+        .value.split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const name = document.getElementById("skill-field-name").value.trim();
+
+      if (idRaw) {
+        const id = Number(idRaw);
+        skillsData = skillsData.map((g) => (g.id === id ? { ...g, name, skills } : g));
+      } else {
+        const nextId = skillsData.length ? Math.max(...skillsData.map((g) => g.id)) + 1 : 1;
+        skillsData.push({ id: nextId, name, skills });
+      }
+
+      saveSkillsData();
+      renderSkills();
+      closeSkillModal();
     });
 
     // --- PWA install prompt (Android/Chrome) ---
